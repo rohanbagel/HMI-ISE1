@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* ============================================
+   NATURALS ICE CREAM — Global Styles
+   Premium editorial aesthetic with atmospheric textures
+   ============================================ */
+
+/* --- Custom Theme Layer --- */
+@theme {
+  --color-cream: #FDF6EC;
+  --color-cream-dark: #F5EADB;
+  --color-green: #1B4332;
+  --color-green-light: #2D6A4F;
+  --color-green-accent: #40916C;
+  --color-brown: #5C4033;
+  --color-brown-light: #8B6F47;
+  --color-brown-warm: #A0845C;
+  --color-gold: #C9A96E;
+  --color-gold-light: #D4B97A;
+  --color-white-soft: #FEFCF9;
+  --color-black-soft: #1A1A1A;
+
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+}
+
+/* --- Base Layer --- */
+@layer base {
+  html {
+    scroll-behavior: auto; /* GSAP handles smooth scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream);
+    color: var(--color-brown);
+    overflow-x: hidden;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--color-green);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-green);
+    color: var(--color-cream);
+  }
+
+  /* Smooth focus outlines for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brown-warm);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brown);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brown-warm) var(--color-cream);
+}
+
+/* --- Loader Animation --- */
+@keyframes churn {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-churn {
+  animation: churn 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* --- Fade-in animation for IntersectionObserver sections --- */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Horizontal scroll for FlavorCarousel --- */
+.flavor-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.flavor-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Video container --- */
+.video-container video {
+  will-change: opacity;
+}
+
+/* Ensure video covers viewport without letterboxing */
+.video-container {
+  isolation: isolate;
+}
+
+/* --- Scroll indicator bounce --- */
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(12px) translateX(-50%); }
+}
+
+.scroll-indicator {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+/* --- Atmospheric Textures & Utilities --- */
+
+/* Subtle paper texture overlay for cream sections */
+.bg-paper-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+}
+
+/* Gold shimmer for interactive elements */
+@keyframes shimmer-gold {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    110deg,
+    var(--color-gold) 0%,
+    var(--color-gold-light) 40%,
+    #f0dca4 50%,
+    var(--color-gold-light) 60%,
+    var(--color-gold) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-gold 3s ease-in-out infinite;
+}
+
+/* Smooth link underline animation */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Soft elevation for cards */
+.elevation-soft {
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 6px 16px rgba(0, 0, 0, 0.06),
+    0 24px 48px rgba(0, 0, 0, 0.04);
+}
+
+.elevation-soft:hover {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.06),
+    0 12px 28px rgba(0, 0, 0, 0.08),
+    0 32px 56px rgba(0, 0, 0, 0.06);
+}
