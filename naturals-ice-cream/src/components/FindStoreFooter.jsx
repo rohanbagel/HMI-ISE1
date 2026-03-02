@@ -104,7 +104,7 @@ export default function FindStoreFooter() {
 
           {/* Search form — glass morphism */}
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 value={city}
@@ -119,7 +119,8 @@ export default function FindStoreFooter() {
                 type="submit"
                 className="px-8 py-4 rounded-full bg-gold text-green font-semibold text-sm
                            tracking-[0.05em] hover:bg-gold-light transition-all duration-400
-                           hover:shadow-lg hover:shadow-gold/25 active:scale-[0.97]"
+                           hover:shadow-lg hover:shadow-gold/25 active:scale-[0.97]
+                           sm:w-auto w-full"
               >
                 {submitted ? '✓ Found!' : 'Search'}
               </button>
@@ -159,7 +160,7 @@ export default function FindStoreFooter() {
             </div>
 
             {/* Nav */}
-            <nav className="flex gap-7">
+            <nav className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-7">
               {FOOTER_LINKS.map((link) => (
                 <a
                   key={link}
